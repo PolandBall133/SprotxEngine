@@ -15,3 +15,16 @@ void GraphicsEngine::draw(SDL_Texture *texture, size_t x, size_t y){
         BOOST_LOG_TRIVIAL(error) << SDL_GetError();
     }
 }
+
+SDL_Texture *GraphicsEngine::render_text(TTF_Font *font, const std::string &text, SDL_Color color, size_t font_size){
+    SDL_Surface *surf = TTF_RenderText_Blended(font, text.c_str(), color);
+    if(surf == nullptr){
+        BOOST_LOG_TRIVIAL(error) << SDL_GetError();
+        return nullptr;
+    }
+    SDL_Texture *texture = SDL_CreateTextureFromSurface(renderer(), surf);
+    if(texture == nullptr)
+        BOOST_LOG_TRIVIAL(error) << SDL_GetError();
+    SDL_FreeSurface(surf);
+    return texture;
+}
