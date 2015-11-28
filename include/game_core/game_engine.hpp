@@ -13,14 +13,24 @@ struct GameEngine final{
     } subsystems_info;
     
     struct{
-        RawCAPIResource<SDL_Renderer> renderer = {NULL};
-        RawCAPIResource<SDL_Window> window = {NULL};
+        RawCAPIResource<SDL_Renderer> renderer = {NULL, std::bind(SDL_DestroyRenderer, std::placeholders::_1)};
+        RawCAPIResource<SDL_Window> window = {NULL, std::bind(SDL_DestroyWindow, std::placeholders::_1)};
     } window_data;
 };
 
 namespace settings{
-    namespace subsystems{ 
-        DEF_CONSTEXPR_STR_LITERAL(subsystems_flags_k); 
-        DEF_CONSTEXPR_STR_LITERAL(init_all_v);
-    }
+    //namespace subsystems{ 
+        DEF_CONSTEXPR_STR_LITERAL_K(subsystems_flags); 
+        DEF_CONSTEXPR_STR_LITERAL_V(subsystems_init_all, "INIT_EVERYTHING");
+    //}
+    //namespace window{
+        DEF_CONSTEXPR_STR_LITERAL_K(window_width);
+        DEF_CONSTEXPR_STR_LITERAL_V(window_width_example, "640");
+
+        DEF_CONSTEXPR_STR_LITERAL_K(window_height);
+        DEF_CONSTEXPR_STR_LITERAL_V(window_height_example, "480");
+
+        DEF_CONSTEXPR_STR_LITERAL_K(window_title);
+        DEF_CONSTEXPR_STR_LITERAL_V(window_title_example, "Hello World!");
+    //}
 }
