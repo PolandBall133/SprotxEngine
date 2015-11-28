@@ -17,15 +17,17 @@ TEST_CASE("memory_safety_test", "[CAPIResource] #simplified_test"){
     struct Dummy{
         int value;
     };
-    bool fred = false;
+    size_t fred = 0;
     auto free = [&](Dummy *d){ 
         delete d; 
-        fred = true;
+        fred += 1;
     };
 
     {
         RawCAPIResource<Dummy> resource(new Dummy{0}, free);
-        REQUIRE(fred == false);
+        REQUIRE(fred == 0);
+        resource.reset(new Dummy{1});
+        REQUIRE(fred == 1);
     }
-    REQUIRE(fred == true);
+    REQUIRE(fred == 2);
 }
