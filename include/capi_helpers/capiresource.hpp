@@ -10,9 +10,8 @@ private:
     using handle_type = std::unique_ptr<T, Deleter>;
     std::unique_ptr<T, Deleter> data_handle;
 public:
-    template<typename IP>
-    CAPIResource(IP instance_provider, Deleter &&deleter = Deleter()):
-        data_handle({instance_provider(), deleter}){}
+    CAPIResource(T *instance, Deleter &&deleter = Deleter()):
+        data_handle({instance, deleter}){}
 
     T *get(){ return data_handle.get(); }
     T const *get() const{ return data_handle.get(); }
