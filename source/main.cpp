@@ -3,6 +3,8 @@
 #include "game_core/loop.hpp"
 #include "game_core/defines.hpp"
 
+#include "graphics_core/graphics_engine.hpp"
+
 #include "resources_managment/texture.hpp"
 
 #include "SDL.h"
@@ -20,6 +22,7 @@ int main(int argc, char **argv){
         return tests_result;
 
     GameEngine engine;
+    GraphicsEngine graphics(engine);
     init(engine, {
         {settings::subsystems_flags,
          settings::subsystems_init_all}
@@ -34,7 +37,7 @@ int main(int argc, char **argv){
         []{}, //pre
         []{}, //step
         [&]{ //render
-            SDL_RenderCopy(engine.window_data.renderer(), sample(), NULL, NULL);
+            graphics.draw(sample(), 10, 10);
         }, 
         []{}  //post
     );
