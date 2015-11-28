@@ -18,8 +18,12 @@ int main(int argc, char **argv){
 
     GameEngine engine;
     init(engine, {
-        {settings::subsystems::subsystems_flags_k, 
-         settings::subsystems::init_all_v}
+        {settings::subsystems_flags, 
+         settings::subsystems_init_all}
     });
+
+    SDL_Delay(2000);
+
+    finish(engine);
     return 0;
 }
