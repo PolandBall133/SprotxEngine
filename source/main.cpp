@@ -1,8 +1,10 @@
 #include "game_core/game_engine.hpp"
 #include "game_core/subsystems.hpp"
 #include "game_core/loop.hpp"
-
 #include "game_core/defines.hpp"
+
+#include "resources_managment/texture.hpp"
+
 #include "SDL.h"
 
 #define CATCH_CONFIG_RUNNER
@@ -19,11 +21,23 @@ int main(int argc, char **argv){
 
     GameEngine engine;
     init(engine, {
-        {settings::subsystems_flags, 
+        {settings::subsystems_flags,
          settings::subsystems_init_all}
     });
 
-    loop(engine);
+    RawCAPIResource<SDL_Texture> sample = {
+        load_texture(engine, "sample.jpg"),
+        std::bind(SDL_DestroyTexture, std::placeholders::_1)
+    };
+
+    loop(engine,
+        []{}, //pre
+        []{}, //step
+        [&]{ //render
+            SDL_RenderCopy(engine.window_data.renderer(), sample(), NULL, NULL);
+        }, 
+        []{}  //post
+    );
 
     finish(engine);
     return 0;
