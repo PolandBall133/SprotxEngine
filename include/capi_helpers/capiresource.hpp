@@ -13,6 +13,7 @@ public:
     CAPIResource(T *instance, Deleter &&deleter = Deleter()):
         data_handle({instance, deleter}){}
 
+    void reset(T *instance){ data_handle.reset(instance); }
     T *get(){ return data_handle.get(); }
     T const *get() const{ return data_handle.get(); }
 
