@@ -1,0 +1,4 @@
+#pragma once
+
+#define SDL_MAIN_HANDLED
+#define INIT_EVERYTHING SDL_INIT_EVERYTHING
