@@ -17,3 +17,10 @@ struct GameEngine final{
         RawCAPIResource<SDL_Window> window = {NULL};
     } window_data;
 };
+
+namespace settings{
+    namespace subsystems{ 
+        DEF_CONSTEXPR_STR_LITERAL(subsystems_flags_k); 
+        DEF_CONSTEXPR_STR_LITERAL(init_all_v);
+    }
+}
