@@ -3,12 +3,23 @@
 
 #include <boost/log/trivial.hpp>
 using namespace boost;
+using namespace std;
 
 #include "SDL.h"
 
-void init(GameEngine &engine){
-    BOOST_LOG_TRIVIAL(trace) << "Initializing game engine: calling #init_internal_subsystems";
-    init_internal_subsystems(engine, INIT_EVERYTHING);
+void init(GameEngine &engine, const SettingsMap &settings){
+    init_internal_subsystems(engine, settings);
+}
+
+tribool init_internal_subsystems(GameEngine &engine, const SettingsMap &settings){
+    using namespace settings::subsystems;
+    auto flags = settings.count(subsystems_flags_k)?
+        settings.at(subsystems_flags_k) == init_all_v?
+            INIT_EVERYTHING
+            : stoul(settings.at(subsystems_flags_k))
+        : INIT_EVERYTHING;
+    BOOST_LOG_TRIVIAL(trace) << "Initializing game engine: calling #init_internal_subsystems (flags: " << flags << ")";
+    return init_internal_subsystems(engine, flags);
 }
 
 tribool init_internal_subsystems(GameEngine &engine, uint32_t flags){
@@ -23,4 +34,8 @@ tribool init_internal_subsystems(GameEngine &engine, uint32_t flags){
     }
     BOOST_LOG_TRIVIAL(warning) << "SDL subsystems already initialized (flags: " << flags << ")";
     return indeterminate;
+}
+
+void init_window_data(GameEngine &engine, const SettingsMap &settings){
+
 }
