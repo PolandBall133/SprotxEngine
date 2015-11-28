@@ -1,5 +1,6 @@
 #include "game_core/game_engine.hpp"
 #include "game_core/subsystems.hpp"
+#include "game_core/loop.hpp"
 
 #include "game_core/defines.hpp"
 #include "SDL.h"
@@ -22,7 +23,7 @@ int main(int argc, char **argv){
          settings::subsystems_init_all}
     });
 
-    SDL_Delay(2000);
+    loop(engine);
 
     finish(engine);
     return 0;
