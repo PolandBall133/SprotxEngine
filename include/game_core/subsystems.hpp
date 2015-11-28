@@ -3,4 +3,5 @@
 
 #include "game_engine.hpp"
 
-boost::tribool init_subsystems(GameEngine &engine, uint32_t flags);
+void init(GameEngine &engine);
+boost::tribool init_internal_subsystems(GameEngine &engine, uint32_t flags);

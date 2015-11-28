@@ -6,7 +6,12 @@ using namespace boost;
 
 #include "SDL.h"
 
-tribool init_subsystems(GameEngine &engine, uint32_t flags){
+void init(GameEngine &engine){
+    BOOST_LOG_TRIVIAL(trace) << "Initializing game engine: calling #init_internal_subsystems";
+    init_internal_subsystems(engine, INIT_EVERYTHING);
+}
+
+tribool init_internal_subsystems(GameEngine &engine, uint32_t flags){
     if(!SDL_WasInit(flags)){
         if(SDL_Init(flags) != 0){
             BOOST_LOG_TRIVIAL(error) << "SDL_Init Error: " << SDL_GetError();
