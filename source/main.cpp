@@ -17,6 +17,9 @@ int main(int argc, char **argv){
         return tests_result;
 
     GameEngine engine;
-    init(engine, {});
+    init(engine, {
+        {settings::subsystems::subsystems_flags_k, 
+         settings::subsystems::init_all_v}
+    });
     return 0;
 }
