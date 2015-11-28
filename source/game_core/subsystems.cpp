@@ -17,7 +17,7 @@ tribool init_internal_subsystems(GameEngine &engine, const SettingsMap &settings
         settings.at(subsystems_flags_k) == init_all_v?
             INIT_EVERYTHING
             : stoul(settings.at(subsystems_flags_k))
-        : INIT_EVERYTHING;
+        : 0;
     BOOST_LOG_TRIVIAL(trace) << "Initializing game engine: calling #init_internal_subsystems (flags: " << flags << ")";
     return init_internal_subsystems(engine, flags);
 }
