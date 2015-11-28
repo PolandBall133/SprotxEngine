@@ -6,15 +6,18 @@ using namespace boost;
 using namespace std;
 
 #include "SDL.h"
+#include "SDL_ttf.h"
 
 void init(GameEngine &engine, const SettingsMap &settings){
     init_internal_subsystems(engine, settings);
     init_window(engine, settings);
     init_renderer(engine);
+    TTF_Init();
 }
 
 void finish(GameEngine &engine){
     SDL_Quit();
+    TTF_Quit();
 }
 
 tribool init_internal_subsystems(GameEngine &engine, const SettingsMap &settings){
