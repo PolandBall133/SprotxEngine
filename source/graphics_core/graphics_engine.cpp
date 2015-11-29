@@ -7,6 +7,21 @@ SDL_Renderer *GraphicsEngine::renderer(){
     return engine.window_data.renderer();
 }
 
+void GraphicsEngine::begin_render(SDL_Color background_color){
+    SDL_SetRenderDrawColor(
+        renderer(), 
+        background_color.r, 
+        background_color.g, 
+        background_color.b, 
+        background_color.a
+    );
+    SDL_RenderClear(renderer());
+}
+
+void GraphicsEngine::end_render(){
+    SDL_RenderPresent(renderer());
+}
+
 void GraphicsEngine::draw(SDL_Texture *texture, size_t x, size_t y){
     int w, h;
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
@@ -14,6 +29,11 @@ void GraphicsEngine::draw(SDL_Texture *texture, size_t x, size_t y){
     if(SDL_RenderCopy(renderer(), texture, NULL, &dest)){
         BOOST_LOG_TRIVIAL(error) << SDL_GetError();
     }
+}
+
+void GraphicsEngine::draw(SDL_Rect rectangle, SDL_Color c){
+    SDL_SetRenderDrawColor(renderer(), c.r, c.g, c.b, c.a);
+    SDL_RenderDrawRect(renderer(), &rectangle);
 }
 
 SDL_Texture *GraphicsEngine::render_text(TTF_Font *font, const std::string &text, SDL_Color color, size_t font_size){
