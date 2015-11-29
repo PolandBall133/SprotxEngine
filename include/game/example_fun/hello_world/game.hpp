@@ -5,15 +5,19 @@
 #include "resources_managment/texture.hpp"
 #include "rectangles_manager.hpp"
 
+#include "utility/directory_utils.hpp"
+
 #include <utility>
 using namespace std;
 using namespace placeholders;
+using boost::filesystem::path;
 
 struct Game{
     GameEngine &engine;
     GraphicsEngine &graphics;
     RectanglesManager rm;
 
+    const path resources_path = greedy_locate_directory("resources").append("example_fun").append("hello_world");
     Game(GameEngine &e, GraphicsEngine &g): engine(e), graphics(g){}
 
     bool running = true;
@@ -21,12 +25,12 @@ struct Game{
     void set_running(bool v){ running = v; }
 
     RawCAPIResource<SDL_Texture> sample_image = {
-        load_texture(engine, "sample.jpg"),
+        load_texture(engine, resources_path.string()+"/sample.jpg"),
         bind(SDL_DestroyTexture, _1)
     };
 
     RawCAPIResource<TTF_Font> sample_font = {
-        TTF_OpenFont("sample.ttf", 60),
+        TTF_OpenFont((resources_path.string()+"/sample.ttf").c_str(), 60),
         bind(TTF_CloseFont, _1)
     };
 
