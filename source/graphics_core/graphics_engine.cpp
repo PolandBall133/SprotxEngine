@@ -22,7 +22,7 @@ void GraphicsEngine::end_render(){
     SDL_RenderPresent(renderer());
 }
 
-void GraphicsEngine::draw(SDL_Texture *texture, size_t x, size_t y){
+void GraphicsEngine::draw(SDL_Texture *texture, int x, int y){
     int w, h;
     SDL_QueryTexture(texture, NULL, NULL, &w, &h);
     SDL_Rect dest = {x, y, w, h};
