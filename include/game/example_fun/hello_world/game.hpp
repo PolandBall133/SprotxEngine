@@ -1,6 +1,8 @@
 #pragma once
 
 #include "game_core/game_engine.hpp"
+#include "game_core/helpers/null_keyboard_handler.hpp"
+
 #include "graphics_core/graphics_engine.hpp"
 
 #include "resources_managment/texture.hpp"
@@ -26,6 +28,10 @@ struct Game{
     bool running = true;
     bool is_running() const{ return running; }
     void set_running(bool v){ running = v; }
+
+    auto get_keyboard_handler(){
+        return NullObject::KeyboardHandler{};
+    }
 
     RawCAPIResource<SDL_Texture> sample_image 
         = load_texture(engine, resources_path.string() + "/sample.jpg");
