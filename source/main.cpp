@@ -1,4 +1,4 @@
-#include "game/example_fun/hello_world/game.hpp"
+#include "game/example_fun/keyboardy/game.hpp"
 
 #include "game_core/subsystems.hpp"
 #include "game_core/loop.hpp"
