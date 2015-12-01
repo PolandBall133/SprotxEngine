@@ -14,23 +14,25 @@ using boost::filesystem::path;
 
 using namespace Simplifications;
 
-struct Game: CanRun, NoPost{
-    GameEngine &engine;
-    GraphicsEngine &graphics;
-    
-    const path resources_path;
-    RawCAPIResource<SDL_Texture> snake_segment;
+namespace SnakeFun{
+    struct Game: CanRun, NoPost{
+        GameEngine &engine;
+        GraphicsEngine &graphics;
 
-    Snake snake;
-    SnakeDrawer snake_drawer;
+        const path resources_path;
+        RawCAPIResource<SDL_Texture> snake_segment;
 
-    MappingKeyboardHandler keyboard_handler;
+        Snake snake;
+        SnakeDrawer snake_drawer;
 
-    Game(GameEngine &e, GraphicsEngine &g);
+        MappingKeyboardHandler keyboard_handler;
 
-    MappingKeyboardHandler &get_keyboard_handler();
+        Game(GameEngine &e, GraphicsEngine &g);
 
-    void pre();
-    void step();
-    void render();
-};
+        MappingKeyboardHandler &get_keyboard_handler();
+
+        void pre();
+        void step();
+        void render();
+    };
+}

@@ -22,7 +22,7 @@ int main(int argc, char **argv){
          settings::subsystems_init_all}
     });
     
-    Game game(engine, graphics);
+    SnakeFun::Game game(engine, graphics);
     loop(engine, game);
 
     finish(engine);
