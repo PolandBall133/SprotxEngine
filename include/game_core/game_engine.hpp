@@ -5,16 +5,18 @@
 #include "defines.hpp"
 #include "SDL.h"
  
-#include "capi_helpers/rawcapiresource.hpp"
+#include "capi_helpers/raw_capi_resource.hpp"
 
 struct GameEngine final{
-    struct{
+    struct SubsystemsInfo{
         uint32_t initialized_flags;
     } subsystems_info;
     
-    struct{
-        RawCAPIResource<SDL_Renderer> renderer = {NULL, std::bind(SDL_DestroyRenderer, std::placeholders::_1)};
-        RawCAPIResource<SDL_Window> window = {NULL, std::bind(SDL_DestroyWindow, std::placeholders::_1)};
+    struct WindowData{
+        RawCAPIResource<SDL_Renderer> renderer =
+            {nullptr, std::bind(SDL_DestroyRenderer, std::placeholders::_1)};
+        RawCAPIResource<SDL_Window> window = 
+            {nullptr, std::bind(SDL_DestroyWindow, std::placeholders::_1)};
     } window_data;
 };
 

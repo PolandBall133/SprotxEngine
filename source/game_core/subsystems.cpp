@@ -76,6 +76,6 @@ void init_window(GameEngine &engine, size_t width, size_t height, const char *ti
 void init_renderer(GameEngine &engine){
     BOOST_LOG_TRIVIAL(trace) << "Initializing game engine: calling #init_renderer";
     engine.window_data.renderer.reset(
-        SDL_CreateRenderer(engine.window_data.window(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC)
+        SDL_CreateRenderer(engine.window_data.window.get(), -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC)
     );
 }

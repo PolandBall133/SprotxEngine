@@ -4,7 +4,7 @@
 GraphicsEngine::GraphicsEngine(GameEngine &e): engine(e){}
 
 SDL_Renderer *GraphicsEngine::renderer(){
-    return engine.window_data.renderer();
+    return engine.window_data.renderer.get();
 }
 
 void GraphicsEngine::begin_render(SDL_Color background_color){
