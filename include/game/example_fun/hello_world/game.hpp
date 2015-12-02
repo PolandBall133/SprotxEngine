@@ -27,9 +27,9 @@ namespace HelloWorld{
         const path resources_path = greedy_locate_directory("resources")+"/example_fun/hello_world";
         Game(GameEngine &e, GraphicsEngine &g): engine(e), graphics(g){}
 
-        TextureHandle sample_image = load_texture(engine, resources_path.string() + "/sample.jpg");
+        TextureHandle sample_image = load_texture(engine, resources_path + "/sample.jpg");
 
-        FontHandle sample_font = load_font(engine, resources_path.string() + "/sample.ttf", 60);
+        FontHandle sample_font = load_font(engine, resources_path + "/sample.ttf", 60);
 
         TextureHandle sample_rendered_text = render_text(
             graphics, sample_font.get(), "Hello World!", {255, 255, 255}, 60);
