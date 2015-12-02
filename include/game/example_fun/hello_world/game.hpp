@@ -1,7 +1,8 @@
 #pragma once
 
 #include "game_core/game_engine.hpp"
-#include "game_core/helpers/null_keyboard_handler.hpp"
+#include "game_core/helpers/no_keyboard.hpp"
+#include "game_core/helpers/can_run.hpp"
 
 #include "graphics_core/graphics_engine.hpp"
 
@@ -16,23 +17,15 @@
 using namespace std;
 using namespace placeholders;
 using boost::filesystem::path;
-
+using namespace Simplifications;
 namespace HelloWorld{
-    struct Game{
+    struct Game: CanRun, NoKeyboard{
         GameEngine &engine;
         GraphicsEngine &graphics;
         RectanglesManager rm;
 
         const path resources_path = greedy_locate_directory("resources")+"/example_fun/hello_world";
         Game(GameEngine &e, GraphicsEngine &g): engine(e), graphics(g){}
-
-        bool running = true;
-        bool is_running() const{ return running; }
-        void set_running(bool v){ running = v; }
-
-        auto get_keyboard_handler(){
-            return NullObject::KeyboardHandler{};
-        }
 
         TextureHandle sample_image = load_texture(engine, resources_path.string() + "/sample.jpg");
 
