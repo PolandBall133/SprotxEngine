@@ -17,3 +17,5 @@ RawCAPIResource<SDL_Texture> render_text(
     SDL_Color color,
     size_t size
 );
+
+using TextureHandle = RawCAPIResource<SDL_Texture>;
