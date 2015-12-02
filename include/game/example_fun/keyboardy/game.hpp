@@ -1,6 +1,7 @@
 #pragma once
 
 #include "game_core/game_engine.hpp"
+#include "game_core/helpers/can_run.hpp"
 #include "graphics_core/graphics_engine.hpp"
 
 #include "resources_managment/texture.hpp"
@@ -16,16 +17,15 @@ using namespace placeholders;
 using boost::filesystem::path;
 
 namespace Keyboardy{
-    struct Game{
+    struct Game: Simplifications::CanRun{
         GameEngine &engine;
         GraphicsEngine &graphics;
 
-        bool running = true;
-        const path resources_path = greedy_locate_directory("resources").append("example_fun").append("keyboardy/");
+        const path resources_path = greedy_locate_directory("resources") + "example_fun/keyboardy/";
 
         Character character;
 
-        vector<RawCAPIResource<SDL_Texture>> frames;
+        vector<TextureHandle> frames;
         const size_t frames_count = 2;
         size_t frame_counter = 1;
         void inc_frame_counter(){
@@ -38,29 +38,24 @@ namespace Keyboardy{
         }
 
         KeyboardHandler keyboard_handler = KeyboardHandler::KeyActionMap{
-            {SDLK_LEFT, [&]{
-                character.pos.x -= 2;
-                inc_frame_counter();
-            }},
-            {SDLK_RIGHT, [&]{
-                character.pos.x += 2;
-                inc_frame_counter();
-            }},
-            {SDLK_UP, [&]{
-                character.pos.y -= 2;
-                inc_frame_counter();
-            }},
-            {SDLK_DOWN, [&]{
-                character.pos.y += 2;
-                inc_frame_counter();
-            }}
+            {{SDLK_LEFT, KeyState::pressed}, 
+             [&]{character.move = bind(&Character::move_x, ref(character), -2); }},
+            {{SDLK_RIGHT, KeyState::pressed}, 
+             [&]{character.move = bind(&Character::move_x, ref(character), 2); }},
+            {{SDLK_UP, KeyState::pressed}, 
+             [&]{character.move = bind(&Character::move_y, ref(character), -2); }},
+            {{SDLK_DOWN, KeyState::pressed},  
+             [&]{character.move = bind(&Character::move_y, ref(character), 2); }},
+            {{SDLK_LEFT, KeyState::released}, [&]{ character.move = nullptr; }},
+            {{SDLK_RIGHT, KeyState::released}, [&]{ character.move = nullptr; }},
+            {{SDLK_UP, KeyState::released}, [&]{ character.move = nullptr; }},
+            {{SDLK_DOWN, KeyState::released}, [&]{ character.move = nullptr; }}
         };
 
-        Game(GameEngine &e, GraphicsEngine &g): engine(e), graphics(g), character({100, 100}){}
-
-
-        bool is_running() const{ return running; }
-        void set_running(bool v){ running = v; }
+        Game(GameEngine &e, GraphicsEngine &g): 
+            engine(e), 
+            graphics(g), 
+            character({100, 100}, [&]{ inc_frame_counter(); }){}
 
         KeyboardHandler get_keyboard_handler(){
             return keyboard_handler;
@@ -70,7 +65,9 @@ namespace Keyboardy{
             for(size_t i = 0; i <= frames_count; ++i)
                 frames.push_back(load_texture(engine, resources_path.string() + to_string(i) + ".png"));
         }
-        void step(){}
+        void step(){
+            character.update();
+        }
         void render(){
             graphics.begin_render({255, 255, 255, 0});
             graphics.draw(get_current_frame_tex().get(), character.pos.x, character.pos.y);
