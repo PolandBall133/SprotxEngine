@@ -1,5 +1,6 @@
 #pragma once
 #include <vector>
+#include "limiter.hpp"
 
 enum class Way{ 
     none, 
@@ -11,15 +12,13 @@ class Snake{
 public:
     using BodySegment = struct{ int x, y; };
     using Body = std::vector<BodySegment>;
-    struct Limiter{
-        int min_x, min_y, max_x, max_y;
-    };
 public:
     Snake(const Body &body_segments, Way dir, Limiter limiter);
     const BodySegment &head() const;
     BodySegment &head();
     const Body &get_body() const;
     void move();
+    void grow();
     void set_direction(Way);
 private:
     Way direction;
