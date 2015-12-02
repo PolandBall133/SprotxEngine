@@ -35,5 +35,6 @@ void Snake::move(){
 }
 
 void Snake::set_direction(Way dir){
-    direction = dir;
+    if((int)direction != -(int)dir)
+        direction = dir;
 }
