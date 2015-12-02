@@ -2,7 +2,7 @@
 
 namespace NullObject{
     struct KeyboardHandler{
-        template<typename Keyboard>
-        void handle(Keyboard kb){}
+        template<typename IgnoreKey, typename IgnoreState>
+        void handle(IgnoreKey, IgnoreState){}
     };
 }

@@ -12,9 +12,11 @@ void loop(GameEngine &engine, Game &game){
             case SDL_QUIT:
                 game.set_running(false);
                 break;
+            case SDL_KEYUP:
+            case SDL_KEYDOWN:
+                keyboard_handler.handle(e.key.keysym, e.key.state);
             }
         }
-        keyboard_handler.handle(SDL_GetKeyboardState(NULL));
 
         game.step();
         game.render();
