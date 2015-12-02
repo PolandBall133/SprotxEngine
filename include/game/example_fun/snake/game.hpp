@@ -7,8 +7,11 @@
 
 #include "graphics_core/graphics_engine.hpp"
 
+#include "utility/directory_utils.hpp"
+
 #include "snake.hpp"
 #include "snake_drawer.hpp"
+
 
 using boost::filesystem::path;
 
@@ -20,7 +23,7 @@ namespace SnakeFun{
         GraphicsEngine &graphics;
 
         const path resources_path;
-        RawCAPIResource<SDL_Texture> snake_segment;
+        TextureHandle snake_segment;
 
         Snake snake;
         SnakeDrawer snake_drawer;
