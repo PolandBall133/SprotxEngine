@@ -34,6 +34,10 @@ void Snake::move(){
         head().x += 1;
 }
 
+void Snake::grow(){
+    body.push_back(head());
+}
+
 void Snake::set_direction(Way dir){
     if((int)direction != -(int)dir)
         direction = dir;
