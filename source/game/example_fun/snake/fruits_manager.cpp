@@ -59,6 +59,7 @@ bool FruitsManager::contains(const Fruit &fruit) const{
 }
 
 void FruitsManager::remove(const Fruit &fruit){
+    WriterLock lock(mtx);
     BOOST_LOG_TRIVIAL(info) << "Removing fruit{" << fruit.x << ", " << fruit.y << "}";
     fruits.erase(std::remove(begin(fruits), end(fruits), fruit), end(fruits));
 }
