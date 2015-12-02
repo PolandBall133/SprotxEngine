@@ -1,6 +1,6 @@
 #include "game/example_fun/snake/snake_drawer.hpp"
 
-SnakeDrawer::SnakeDrawer(GraphicsEngine &g, const Snake &s, RawCAPIResource<SDL_Texture> &s_tex): 
+SnakeDrawer::SnakeDrawer(GraphicsEngine &g, const Snake &s, TextureHandle &s_tex): 
     graphics(g), snake(s),
     segment_tex(s_tex){}
 
