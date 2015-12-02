@@ -23,7 +23,7 @@ namespace HelloWorld{
         GraphicsEngine &graphics;
         RectanglesManager rm;
 
-        const path resources_path = greedy_locate_directory("resources").append("example_fun").append("hello_world");
+        const path resources_path = greedy_locate_directory("resources")+"/example_fun/hello_world";
         Game(GameEngine &e, GraphicsEngine &g): engine(e), graphics(g){}
 
         bool running = true;
@@ -34,14 +34,12 @@ namespace HelloWorld{
             return NullObject::KeyboardHandler{};
         }
 
-        RawCAPIResource<SDL_Texture> sample_image
-            = load_texture(engine, resources_path.string() + "/sample.jpg");
+        TextureHandle sample_image = load_texture(engine, resources_path.string() + "/sample.jpg");
 
-        RawCAPIResource<TTF_Font> sample_font
-            = load_font(engine, resources_path.string() + "/sample.ttf", 60);
+        FontHandle sample_font = load_font(engine, resources_path.string() + "/sample.ttf", 60);
 
-        RawCAPIResource<SDL_Texture> sample_rendered_text
-            = render_text(graphics, sample_font.get(), "Hello World!", {255, 255, 255}, 60);
+        TextureHandle sample_rendered_text = render_text(
+            graphics, sample_font.get(), "Hello World!", {255, 255, 255}, 60);
 
         void pre(){
             rm.gen();
