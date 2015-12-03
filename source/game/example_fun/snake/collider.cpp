@@ -1,8 +1,9 @@
 #include "game/example_fun/snake/collider.hpp"
 
-Collider::Collider(FruitsManager &fm, Snake &s):
+Collider::Collider(FruitsManager &fm, Snake &s, YSE::sound &eating_snd):
     fruits_manager(fm),
-    snake(s)
+    snake(s),
+    eating_sound(eating_snd)
 {}
 
 void Collider::check_and_react(){
@@ -11,5 +12,6 @@ void Collider::check_and_react(){
     while(fruits_manager.contains(fruit)){
         fruits_manager.remove(fruit);
         snake.grow();
+        eating_sound.play();
     }
 }
