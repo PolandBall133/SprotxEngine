@@ -11,6 +11,7 @@ namespace SnakeFun{
 
         resources_path(greedy_locate_directory("resources") + "example_fun/snake/"),
 
+        background_tex(load_texture(engine, resources_path + "background.png")),
         snake_segment_tex(load_texture(engine, resources_path + "segment.png")),
         fruit_tex(load_texture(engine, resources_path + "fruit.png")),
 
@@ -20,7 +21,7 @@ namespace SnakeFun{
         fruits_manager(game_limiter, 20, seconds(5)),
         fruits_drawer(graphics, fruits_manager, fruit_tex),
 
-        collider(fruits_manager, snake),
+        collider(fruits_manager, snake, eating_sound),
 
         keyboard_handler({}){}
 
@@ -29,6 +30,21 @@ namespace SnakeFun{
     }
 
     void Game::pre(){
+        YSE::System().init();
+
+        eating_sound.create(
+            (resources_path + "suck-up.wav").string().c_str(),
+            &YSE::ChannelFX()
+        );
+        eating_sound.setSpeed(2.f);
+
+        background_sound.create(
+            (resources_path + "background.wav").string().c_str(),
+            &YSE::ChannelMusic(),
+            true //looped
+        );
+        background_sound.play();
+
         keyboard_handler.binded_actions[{SDLK_UP, KeyState::pressed}] = [&]{
             snake.set_direction(Way::up);
         };
@@ -54,13 +70,20 @@ namespace SnakeFun{
             collider.check_and_react();
 
             counter = 0;
+
+            YSE::System().update();
         }
     }
 
     void Game::render(){
         graphics.begin_render({170, 220, 255});
+        graphics.draw(background_tex.get(), 0, 0);
         fruits_drawer.draw();
         snake_drawer.draw();
         graphics.end_render();
+    }
+
+    void Game::post(){
+        YSE::System().close();
     }
 }
