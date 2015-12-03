@@ -2,7 +2,6 @@
 
 #include "game_core/game_engine.hpp"
 #include "game_core/helpers/can_run.hpp"
-#include "game_core/helpers/no_post.hpp"
 #include "game_core/helpers/mapping_keyboard_handler.hpp"
 
 #include "graphics_core/graphics_engine.hpp"
@@ -17,16 +16,20 @@
 
 #include "collider.hpp"
 
+#include "yse/yse.hpp"
+
 using boost::filesystem::path;
 
 using namespace Simplifications;
 
 namespace SnakeFun{
-    struct Game: CanRun, NoPost{
+    struct Game: CanRun{
         GameEngine &engine;
         GraphicsEngine &graphics;
 
         const path resources_path;
+
+        TextureHandle background_tex;
         TextureHandle snake_segment_tex;
         TextureHandle fruit_tex;
 
@@ -40,6 +43,9 @@ namespace SnakeFun{
 
         MappingKeyboardHandler keyboard_handler;
 
+        YSE::sound eating_sound;
+        YSE::sound background_sound;
+
         Game(GameEngine &e, GraphicsEngine &g);
 
         MappingKeyboardHandler &get_keyboard_handler();
@@ -47,5 +53,6 @@ namespace SnakeFun{
         void pre();
         void step();
         void render();
+        void post();
     };
 }
