@@ -41,10 +41,10 @@ namespace SnakeFun{
 
         Collider collider;
 
-        MappingKeyboardHandler keyboard_handler;
-
         YSE::sound eating_sound;
         YSE::sound background_sound;
+
+        SnakeInputHandler input_handler;
 
         Game(GameEngine &e, GraphicsEngine &g);
 

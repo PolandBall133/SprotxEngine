@@ -23,10 +23,10 @@ namespace SnakeFun{
 
         collider(fruits_manager, snake, eating_sound),
 
-        keyboard_handler({}){}
+        input_handler(snake){}
 
     MappingKeyboardHandler &Game::get_keyboard_handler(){
-        return keyboard_handler;
+        return input_handler.keyboard_handler;
     }
 
     void Game::pre(){
@@ -44,22 +44,6 @@ namespace SnakeFun{
             true //looped
         );
         background_sound.play();
-
-        keyboard_handler.binded_actions[{SDLK_UP, KeyState::pressed}] = [&]{
-            snake.set_direction(Way::up);
-        };
-        keyboard_handler.binded_actions[{SDLK_DOWN, KeyState::pressed}] = [&]{
-            snake.set_direction(Way::down);
-        };
-        keyboard_handler.binded_actions[{SDLK_LEFT, KeyState::pressed}] = [&]{
-            snake.set_direction(Way::left);
-        };
-        keyboard_handler.binded_actions[{SDLK_RIGHT, KeyState::pressed}] = [&]{
-            snake.set_direction(Way::right);
-        };
-        keyboard_handler.binded_actions[{SDLK_g, KeyState::released}] = [&]{
-            snake.grow();
-        };
     }
 
     void Game::step(){

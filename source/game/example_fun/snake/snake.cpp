@@ -1,5 +1,8 @@
 #include "game/example_fun/snake/snake.hpp"
 
+#include <functional>
+using namespace std;
+
 Snake::Snake(
     const Body &body_segments,
     Way dir,
@@ -42,3 +45,14 @@ void Snake::set_direction(Way dir){
     if((int)direction != -(int)dir)
         direction = dir;
 }
+
+SnakeInputHandler::SnakeInputHandler(Snake &s):
+    snake(s),
+    keyboard_handler({
+        {{SDLK_UP, KeyState::pressed}, bind(&Snake::set_direction, ref(snake), Way::up)},
+        {{SDLK_DOWN, KeyState::pressed}, bind(&Snake::set_direction, ref(snake), Way::down)},
+        {{SDLK_LEFT, KeyState::pressed}, bind(&Snake::set_direction, ref(snake), Way::left)},
+        {{SDLK_RIGHT, KeyState::pressed}, bind(&Snake::set_direction, ref(snake), Way::right)},
+        {{SDLK_g, KeyState::released}, bind(&Snake::grow, ref(snake))}
+    })
+{}

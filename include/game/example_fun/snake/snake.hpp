@@ -1,5 +1,8 @@
 #pragma once
 #include <vector>
+
+#include "game_core/helpers/mapping_keyboard_handler.hpp"
+
 #include "limiter.hpp"
 
 enum class Way{ 
@@ -24,4 +27,10 @@ private:
     Way direction;
     Body body;
     Limiter limit;
+};
+
+struct SnakeInputHandler{
+    Snake &snake;
+    MappingKeyboardHandler keyboard_handler;
+    SnakeInputHandler(Snake &s);
 };
