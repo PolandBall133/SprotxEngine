@@ -8,8 +8,11 @@ namespace SnakeFun{
     Game::Game(GameEngine &e, GraphicsEngine &g):
         engine(e), 
         graphics(g),
+        text_drawer(graphics),
 
         resources_path(greedy_locate_directory("resources") + "example_fun/snake/"),
+
+        fonts_system(graphics, resources_path),
 
         background_tex(load_texture(engine, resources_path + "background.png")),
         snake_segment_tex(load_texture(engine, resources_path + "segment.png")),
@@ -62,6 +65,7 @@ namespace SnakeFun{
     void Game::render(){
         graphics.begin_render({170, 220, 255});
         graphics.draw(background_tex.get(), 0, 0);
+        text_drawer.draw(fonts_system.font("sample_font").of_size(120), "snake", 80, 80);
         fruits_drawer.draw();
         snake_drawer.draw();
         graphics.end_render();

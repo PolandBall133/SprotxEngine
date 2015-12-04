@@ -5,6 +5,10 @@
 #include "game_core/helpers/mapping_keyboard_handler.hpp"
 
 #include "graphics_core/graphics_engine.hpp"
+#include "graphics_core/text_drawer.hpp"
+
+#include "yse/yse.hpp"
+#include "fonts_core/fonts_system.hpp"
 
 #include "utility/directory_utils.hpp"
 
@@ -16,8 +20,6 @@
 
 #include "collider.hpp"
 
-#include "yse/yse.hpp"
-
 using boost::filesystem::path;
 
 using namespace Simplifications;
@@ -26,8 +28,12 @@ namespace SnakeFun{
     struct Game: CanRun{
         GameEngine &engine;
         GraphicsEngine &graphics;
+        TextDrawer text_drawer;
 
         const path resources_path;
+
+        FontsSystem fonts_system;
+
 
         TextureHandle background_tex;
         TextureHandle snake_segment_tex;
