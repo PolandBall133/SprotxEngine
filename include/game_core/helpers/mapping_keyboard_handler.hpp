@@ -2,6 +2,7 @@
 
 #include <map>
 #include <functional>
+#include <initializer_list>
 
 #include "game_core/defines.hpp"
 #include "SDL.h"
@@ -14,9 +15,8 @@ struct MappingKeyboardHandler{
     using KeyActionMap = std::map<Key, Action>;
 
     KeyActionMap binded_actions;
-    MappingKeyboardHandler(KeyActionMap &map): binded_actions(map){}
     MappingKeyboardHandler(const KeyActionMap &map): binded_actions(map){}
-    MappingKeyboardHandler(): binded_actions(){}
+    MappingKeyboardHandler(const std::initializer_list<KeyActionMap::value_type> &il): binded_actions(il){}
 
 
     void handle(SDL_Keysym key, Uint8 state){
