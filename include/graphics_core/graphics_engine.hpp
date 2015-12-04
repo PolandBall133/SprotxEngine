@@ -16,5 +16,5 @@ public:
     void draw(SDL_Texture *texture, int x, int y);
     void draw(SDL_Rect rectangle, SDL_Color color);
 
-    SDL_Texture *render_text(TTF_Font *font, const std::string &text, SDL_Color color, size_t font_size);
+    SDL_Texture *render_text(TTF_Font *font, const std::string &text, SDL_Color color);
 };

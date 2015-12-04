@@ -14,8 +14,7 @@ RawCAPIResource<SDL_Texture> render_text(
     GraphicsEngine &graphics, 
     TTF_Font *font, 
     const std::string &text, 
-    SDL_Color color,
-    size_t size
+    SDL_Color color
 );
 
 using TextureHandle = RawCAPIResource<SDL_Texture>;

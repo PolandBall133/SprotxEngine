@@ -36,7 +36,7 @@ void GraphicsEngine::draw(SDL_Rect rectangle, SDL_Color c){
     SDL_RenderDrawRect(renderer(), &rectangle);
 }
 
-SDL_Texture *GraphicsEngine::render_text(TTF_Font *font, const std::string &text, SDL_Color color, size_t font_size){
+SDL_Texture *GraphicsEngine::render_text(TTF_Font *font, const std::string &text, SDL_Color color){
     SDL_Surface *surf = TTF_RenderText_Blended(font, text.c_str(), color);
     if(surf == nullptr){
         BOOST_LOG_TRIVIAL(error) << SDL_GetError();
