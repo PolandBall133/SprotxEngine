@@ -12,6 +12,7 @@ void Collider::check_and_react(){
     while(fruits_manager.contains(fruit)){
         fruits_manager.remove(fruit);
         snake.grow();
+        eating_sound.setTime(0);
         eating_sound.play();
     }
 }
