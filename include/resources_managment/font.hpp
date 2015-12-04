@@ -6,6 +6,6 @@
 #include "game_core/game_engine.hpp"
 #include "SDL_ttf.h"
 
-RawCAPIResource<TTF_Font> load_font(GameEngine &engine, const boost::filesystem::path &p, size_t pref_size);
+RawCAPIResource<TTF_Font> load_font(const boost::filesystem::path &p, size_t size);
 
 using FontHandle = RawCAPIResource<TTF_Font>;
