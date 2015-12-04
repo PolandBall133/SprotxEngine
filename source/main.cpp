@@ -19,12 +19,15 @@ int main(int argc, char **argv){
     GraphicsEngine graphics(engine);
     init(engine, {
         {settings::subsystems_flags,
-         settings::subsystems_init_all}
+            settings::subsystems_init_all}
     });
-    
-    SnakeFun::Game game(engine, graphics);
-    loop(engine, game);
+
+    {{ //scope
+        SnakeFun::Game game(engine, graphics);
+        loop(engine, game);
+    }}
 
     finish(engine);
+
     return 0;
 }
