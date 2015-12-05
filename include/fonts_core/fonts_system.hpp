@@ -16,6 +16,7 @@ class FontsSystemInstance;
 
 struct Glyph{
     TextureHandle texture;
+    const SDL_Color color;
     Glyph(TextureHandle &&texture);
 };
 
@@ -29,8 +30,8 @@ private:
 public:
     SizedFont(GraphicsEngine &graphics_engine, FontHandle &&font_handle);
     FontHandle::element_type *raw_font();
-    Glyph &glyph(Symbol symbol);
-    const Glyph &glyph(Symbol symbol) const;
+    Glyph &glyph(Symbol symbol, SDL_Color color = {0, 0, 0, 0});
+    const Glyph &glyph(Symbol symbol, SDL_Color color = {0, 0, 0, 0}) const;
 };
 
 class Font{
