@@ -3,14 +3,13 @@
 #include "game_core/game_engine.hpp"
 #include "game_core/helpers/can_run.hpp"
 #include "game_core/helpers/mapping_keyboard_handler.hpp"
+#include "game_core/helpers/no_post.hpp"
 
 #include "graphics_core/graphics_engine.hpp"
 #include "graphics_core/text_drawer.hpp"
 
 #include "yse/yse.hpp"
 #include "fonts_core/fonts_system.hpp"
-
-#include "utility/directory_utils.hpp"
 
 #include "snake.hpp"
 #include "snake_drawer.hpp"
@@ -26,17 +25,15 @@ using boost::filesystem::path;
 using namespace Simplifications;
 
 namespace SnakeFun{
-    struct Game: CanRun{
+    struct Game: CanRun, NoPost{
         GameEngine &engine;
         GraphicsEngine &graphics;
+
+        FontsSystem &fonts_system;
         TextDrawer text_drawer;
 
-        const path resources_path;
+        const path &resources_path;
 
-        FontsSystem fonts_system;
-
-
-        TextureHandle background_tex;
         TextureHandle snake_segment_tex;
         TextureHandle fruit_tex;
 
@@ -54,13 +51,16 @@ namespace SnakeFun{
 
         SnakeInputHandler input_handler;
 
-        Game(GameEngine &e, GraphicsEngine &g);
+        Game(
+            GameEngine &e, 
+            GraphicsEngine &g, 
+            FontsSystem &fonts_system, 
+            const path &resources_path);
 
         MappingKeyboardHandler &get_keyboard_handler();
 
         void pre();
         void step();
         void render();
-        void post();
     };
 }
