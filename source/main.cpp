@@ -1,4 +1,4 @@
-#include "game/example_fun/snake/game.hpp"
+#include "game/example_fun/snake/game_holder.hpp"
 
 #include "game_core/subsystems.hpp"
 #include "game_core/loop.hpp"
@@ -23,7 +23,7 @@ int main(int argc, char **argv){
     });
 
     {{ //scope
-        SnakeFun::Game game(engine, graphics);
+        SnakeFun::GameHolder game(engine, graphics);
         loop(engine, game);
     }}
 
