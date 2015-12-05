@@ -24,7 +24,8 @@ namespace SnakeFun{
         fruits_manager(game_limiter, 20, seconds(5)),
         fruits_drawer(graphics, fruits_manager, fruit_tex),
 
-        collider(fruits_manager, snake, eating_sound),
+        score_manager(0),
+        collider(fruits_manager, score_manager, snake, eating_sound),
 
         input_handler(snake){}
 
@@ -65,7 +66,8 @@ namespace SnakeFun{
     void Game::render(){
         graphics.begin_render({170, 220, 255});
         graphics.draw(background_tex.get(), 0, 0);
-        text_drawer.draw(fonts_system.font("sample_font").of_size(120), "snake", 80, 80);
+        auto text = "snake score: " + to_string(score_manager.score());
+        text_drawer.draw(fonts_system.font("sample_font").of_size(64), text, 10, 10);
         fruits_drawer.draw();
         snake_drawer.draw();
         graphics.end_render();

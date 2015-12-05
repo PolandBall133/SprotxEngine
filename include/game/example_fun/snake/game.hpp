@@ -18,6 +18,7 @@
 #include "fruits_manager.hpp"
 #include "fruits_drawer.hpp"
 
+#include "score_manager.hpp"
 #include "collider.hpp"
 
 using boost::filesystem::path;
@@ -45,6 +46,7 @@ namespace SnakeFun{
         FruitsManager fruits_manager;
         FruitsDrawer fruits_drawer;
 
+        ScoreManager score_manager;
         Collider collider;
 
         YSE::sound eating_sound;
