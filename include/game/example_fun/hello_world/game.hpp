@@ -3,6 +3,7 @@
 #include "game_core/game_engine.hpp"
 #include "game_core/helpers/no_keyboard.hpp"
 #include "game_core/helpers/can_run.hpp"
+#include "game_core/helpers/no_post.hpp"
 
 #include "graphics_core/graphics_engine.hpp"
 
@@ -19,7 +20,7 @@ using namespace placeholders;
 using boost::filesystem::path;
 using namespace Simplifications;
 namespace HelloWorld{
-    struct Game: CanRun, NoKeyboard{
+    struct Game: CanRun, NoKeyboard, NoPost{
         GameEngine &engine;
         GraphicsEngine &graphics;
         RectanglesManager rm;
@@ -29,10 +30,10 @@ namespace HelloWorld{
 
         TextureHandle sample_image = load_texture(engine, resources_path + "/sample.jpg");
 
-        FontHandle sample_font = load_font(engine, resources_path + "/sample.ttf", 60);
+        FontHandle sample_font = load_font(resources_path + "/sample.ttf", 60);
 
         TextureHandle sample_rendered_text = render_text(
-            graphics, sample_font.get(), "Hello World!", {255, 255, 255}, 60);
+            graphics, sample_font.get(), "Hello World!", {255, 255, 255});
 
         void pre(){
             rm.gen();
@@ -46,11 +47,6 @@ namespace HelloWorld{
             for(auto &colored_rect : rm.rects)
                 graphics.draw(colored_rect.rect, colored_rect.color);
             graphics.end_render();
-        }
-        void post(){
-            sample_image.reset(nullptr);
-            sample_font.reset(nullptr);
-            sample_rendered_text.reset(nullptr);
         }
     };
 }
