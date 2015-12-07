@@ -23,7 +23,7 @@ namespace SnakeFun{
         { game_menu.set_running(val); }
 
         void pre(){
-            YSE::System().init();
+            //YSE::System().init();
             game_menu.pre();
         }
 
@@ -40,7 +40,7 @@ namespace SnakeFun{
 
         void post(){
             game_menu.post();
-            YSE::System().close();
+            //YSE::System().close();
         }
     };
 }

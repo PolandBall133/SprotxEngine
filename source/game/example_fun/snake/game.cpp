@@ -4,7 +4,7 @@
 using namespace boost::chrono;
 
 namespace SnakeFun{
-    const Limiter game_limiter = {-1, -1, 64, 48};
+    const Limiter game_limiter = {0, 0, 64, 48};
     Game::Game(GameEngine &e, GraphicsEngine &g, FontsSystem &fs, const path &rp):
         engine(e), 
         graphics(g),
